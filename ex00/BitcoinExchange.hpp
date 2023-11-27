@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:19:09 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/11/15 18:21:45 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:14:22 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <map>
 #include <cstdlib>
@@ -26,7 +27,8 @@ class BitcoinExchange
 
 		~BitcoinExchange();
 		static	void	createDatabase();
-		static	void	createInputList();
+		static	void	createInputList(char *filename);
+		static	void	printValues();
 
 	private:
 
@@ -43,6 +45,22 @@ class ErrorLoadingDatabase: public std::exception
 	virtual const char* what() const throw()
 	{
 		return ("Error: could not open database file.");
+	}
+};
+
+class InvalidNumberArguments: public std::exception
+{
+	virtual const char* what() const throw()
+	{
+		return ("Error: please provide a single file as argument.");
+	}
+};
+
+class ErrorLoadingInput: public std::exception
+{
+	virtual const char* what() const throw()
+	{
+		return ("Error: could not open input file.");
 	}
 };
 
