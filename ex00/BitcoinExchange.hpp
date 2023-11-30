@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:19:09 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/11/27 18:14:22 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:14:16 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <string>
 #include <map>
 #include <cstdlib>
+#include <ctime>
 
 class BitcoinExchange
 {
@@ -29,6 +30,7 @@ class BitcoinExchange
 		static	void	createDatabase();
 		static	void	createInputList(char *filename);
 		static	void	printValues();
+		static 	bool	checkValidDate(std::string date);
 
 	private:
 

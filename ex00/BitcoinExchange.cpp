@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:18:49 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/11/27 18:20:10 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:40:06 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,27 @@ void	BitcoinExchange::createInputList(char *filename)
 	{
 		std::istringstream iss(line);
 		std::string token;
+		iss >> token;
+		if (!checkValidDate(token))
+			std::cout << "Error: Invalid date => " << token << std::endl;
+
 	}
 	
+}
+
+bool	BitcoinExchange::checkValidDate(std::string date)
+{
+	if (date.size() != 10 && date[4] != '-' && date[7] != '-' && date.find_first_not_of("0123456789-") != std::string::npos)
+		return false;
+	std::string	year = date.substr(0, 4);
+	std::string	month = date.substr(5, 2);
+	std::string day = date.substr(8);
+	std::cout << year << "|" << month << "|" << day << std::endl;
+	if (std::atoi(year.c_str()) < 2009)
+		return false;
+	if (std::atoi(year.c_str()) < 1 && std::atoi(year.c_str()))
+		return false; 
+	return true;
 }
 
 void	BitcoinExchange::printValues()
