@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:19:09 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/11/30 13:14:16 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/02 02:28:56 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ class BitcoinExchange
 		static	void	createInputList(char *filename);
 		static	void	printValues();
 		static 	bool	checkValidDate(std::string date);
+		static	bool	checkValidBalance(std::string balance);
 
 	private:
 
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &target);
 		BitcoinExchange &operator=(const BitcoinExchange &target);
-		static	std::map<std::string, float> _database;
-		static	std::map<std::string, float> _inputlist;
+		static	std::map<time_t, float> _database;
+		static	time_t	_time;
+		static	float	_balance;
 
 };
 
