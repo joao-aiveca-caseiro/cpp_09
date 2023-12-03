@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:19:09 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/12/02 02:28:56 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:20:10 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class BitcoinExchange
 		static	void	createDatabase();
 		static	void	createInputList(char *filename);
 		static	void	printValues();
+		static	void	convertToFiat(std::string date, std::string value);
 		static 	bool	checkValidDate(std::string date);
 		static	bool	checkValidBalance(std::string balance);
 

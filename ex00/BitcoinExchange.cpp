@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:18:49 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/12/02 02:58:48 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/03 01:25:39 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,43 +65,31 @@ void	BitcoinExchange::createInputList(char *filename)
 {
 	std::ifstream	file(filename);
 	std::string		line;
+	bool			firstline = true;
 	
 	if (!file.is_open())
 		throw ErrorLoadingInput();
 	while (std::getline(file, line))
 	{
+		if (firstline && line == "date | value")
+		{
+			firstline = false;
+			continue;
+		}
 		std::istringstream iss(line);
 		std::string date, separator, value;
-		// if (iss >> token && !checkValidDate(token))
-		// 	std::cout << "Error: Invalid date => " << token << std::endl;
-		// if (iss >> token && token != "|")
-		// 	std::cout << "Error: Invalid syntax => " << token << std::endl;
-		// if (iss >> token && !checkValidBalance(token))
-		// 	std::cout << "Error: Invalid balance => " << token << std::endl;
-		// if (iss >> token)
-		// 	std::cout << "Error: Invalid syntax => " << token << std::endl;
-		// else
-		// 	convertToFiat()
 		iss >> date >> separator >> value;
-		if (!checkValidDate(date))
-		{
+		if (date.empty() || separator.empty() || value.empty() || iss.peek() != EOF)
+			std::cout << "Error: Invalid syntax => " << line << std::endl;
+		else if (!checkValidDate(date))
 			std::cout << "Error: Invalid date => " << date << std::endl;
-			continue;
-		}
-		if (separator != "|")
-		{
-			std::cout << "Error: Invalid syntax => " << separator << std::endl;
-			continue;
-		}
-		if (!checkValidBalance(value))
-		{
+		else if (separator != "|")
+			std::cout << "Error: Invalid separator => " << separator << std::endl;
+		else if (!checkValidBalance(value))
 			std::cout << "Error: Invalid balance => " << value << std::endl;
-			continue;
-		}
-		if (iss.peek() != EOF)
-			std::cout << "Error: Invalid syntax. Too many elements" << std::endl;
+		else
+			convertToFiat(date, value);
 	}
-	
 }
 
 bool	BitcoinExchange::checkValidDate(std::string date)
@@ -109,7 +97,8 @@ bool	BitcoinExchange::checkValidDate(std::string date)
 	std::tm		timeinfo;
 	int			max_days[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	
-	if (date.size() != 10 && date[4] != '-' && date[7] != '-' && date.find_first_not_of("0123456789-") != std::string::npos)
+	if (date.size() != 10 || date.find_first_not_of("0123456789-") != std::string::npos
+	|| date[4] != '-' || date[7] != '-' || date[6] == '-' || date[9] == '-')
 		return false;
 	int	year = std::atoi((date.substr(0, 4)).c_str());
 	int	month = std::atoi((date.substr(5, 2)).c_str());
@@ -118,7 +107,7 @@ bool	BitcoinExchange::checkValidDate(std::string date)
 		return false;
 	if (month < 1 || month > 12)
 		return false;
-	if (day < 1 || day > max_days[day] || (day == 29 && month == 2 && year % 4 != 0))
+	if (day < 1 || day > max_days[month] || (day == 29 && month == 2 && year % 4 != 0) || (day == 1 && month == 1 && year == 2009))
 		return false;
 	timeinfo.tm_mday = day;
 	timeinfo.tm_mon = month - 1;
@@ -133,9 +122,28 @@ bool	BitcoinExchange::checkValidDate(std::string date)
 	return true;
 }
 
+void	BitcoinExchange::convertToFiat(std::string date, std::string value)
+{
+	size_t	min_difference = std::string::npos;
+	float	selected_rate = -1;
+	for (std::map<time_t, float>::iterator it = _database.begin(); it != _database.end(); it++)
+	{
+		if (it->first <= _time)
+		{
+			size_t difference = _time - it->first;
+			if (difference < min_difference)
+			{
+				min_difference = difference;
+				selected_rate = it->second;
+			}
+		}
+	}
+	std::cout << date << " => " << value << " = " << _balance * selected_rate << std::endl;
+}
+
 bool	BitcoinExchange::checkValidBalance(std::string balance)
 {
-	if (balance.find_first_not_of("0123456789.") != std::string::npos)
+	if (balance.find_first_not_of("0123456789.") != std::string::npos || balance.find('.') != balance.rfind('.'))
 		return false;
 	_balance = atof(balance.c_str());
 	if (_balance < 0 || _balance > 1000)
