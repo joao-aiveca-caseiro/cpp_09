@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RPN.cpp                                            :+:      :+:    :+:   */
+/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaiveca- <jaiveca-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:18:49 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/12/08 14:20:31 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:46:58 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
+#include "PmergeMe.hpp"
 
-std::stack<long> RPN::_stack;
+std::stack<long> PmergeMe::_stack;
 
-RPN::RPN(){}
+PmergeMe::PmergeMe(){}
 
-RPN::~RPN(){}
+PmergeMe::~PmergeMe(){}
 
-RPN::RPN(const RPN &target)
+PmergeMe::PmergeMe(const PmergeMe &target)
 {
 	*this = target;
 }
 
-RPN &RPN::operator=(const RPN &target)
+PmergeMe &PmergeMe::operator=(const PmergeMe &target)
 {
 	(void)target;
 	return *this;
 }
 
-void	RPN::validateInput(std::string arg)
+void	PmergeMe::validateInput(std::string arg)
 {
 	if (arg.find_first_not_of("0123456789-+/* ") != std::string::npos)
 		throw InvalidExpression();
 }
 
-long	RPN::calculateExpression(std::string arg)
+long	PmergeMe::calculateExpression(std::string arg)
 {
 	std::istringstream iss(arg);
 	std::string token;

@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 17:18:31 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/12/04 15:46:04 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:35:43 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << e.what() << '\n';
 	}
 	
 }
