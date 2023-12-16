@@ -90,6 +90,7 @@ void	BitcoinExchange::createInputList(char *filename)
 		else
 			convertToFiat(date, value);
 	}
+	file.close();
 }
 
 bool	BitcoinExchange::checkValidDate(std::string date)

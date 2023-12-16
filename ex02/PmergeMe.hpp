@@ -30,12 +30,18 @@ class PmergeMe
 		~PmergeMe();
 		static void	validateInput(char **arg);
 		static void	initSorting();
-		static void printSequence();
+		static void printSequence(int flag);
 		static void checkIfSorted();
+		
 		static void vectorSorting();
 		static std::vector<std::pair<int, int> > vectorMergeSort(std::vector<std::pair<int, int> > vecPairs);
 		static std::vector<std::pair<int, int> > mergeVectors(std::vector<std::pair<int, int> > v1, std::vector<std::pair<int, int> > v2);
+		static std::vector<int>::iterator vecBinarySearch(int num, std::vector<int> &vec);
+		
 		static void listSorting();
+		static std::list<std::pair<int, int> > listMergeSort(std::list<std::pair<int, int> > lstPairs);
+		static std::list<std::pair<int, int> > mergeLists(std::list<std::pair<int, int> > l1, std::list<std::pair<int, int> > l2);
+		static std::list<int>::iterator lstBinarySearch(int num, std::list<int> &vec);
 
 	private:
 
