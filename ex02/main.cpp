@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaiveca- <jaiveca-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 17:18:31 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/12/08 14:47:16 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:18:09 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int main(int argc, char **argv)
 	try
 	{
 		if (argc <= 2)
-			throw InvalidExpression();	
+			throw InvalidExpression();
+		PmergeMe::validateInput(argv);
+		PmergeMe::initSorting();
 	}
 	catch(const std::exception& e)
 	{
