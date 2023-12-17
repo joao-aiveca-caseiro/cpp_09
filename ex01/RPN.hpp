@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaiveca- <jaiveca-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:19:09 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/12/04 15:44:03 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/17 02:09:28 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ class InvalidToken: public std::exception
 	virtual const char* what() const throw()
 	{
 		return ("Error: invalid token. The operands must be single digits, and the operators '*', '/', '+' or '-'");
+	}
+};
+
+class DivideByZero: public std::exception
+{
+	virtual const char* what() const throw()
+	{
+		return ("Error: Undefined behaviour due to a division by 0");
 	}
 };
 

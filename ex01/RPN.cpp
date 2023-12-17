@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaiveca- <jaiveca-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:18:49 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/12/08 14:20:31 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/12/17 02:09:45 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ long	RPN::calculateExpression(std::string arg)
 			else if (token == "*")
 				_stack.push(l_operand * r_operand);
 			else if (token == "/")
+			{
+				if (r_operand == 0)
+					throw DivideByZero();
 				_stack.push(l_operand / r_operand);
+			}
 		}
 		// is invalid
 		else
